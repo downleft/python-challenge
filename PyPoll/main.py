@@ -48,11 +48,30 @@ with open(csvpath) as csvfile:
         elif row[2] == candidate3:
             candidate3_vote = candidate3_vote + 1
 
+    #Calculate percentages
+    candidate1_percent = candidate1_vote/votercount
+    candidate1_percent = round(candidate1_percent*100,3)
+    candidate2_percent = candidate2_vote/votercount
+    candidate2_percent = round(candidate2_percent*100,3)
+    candidate3_percent = candidate3_vote/votercount
+    candidate3_percent = round(candidate3_percent*100,3)
+
     #Print out results of various calculations
     print(" ")
     print("Election Results")
     print("-------------------------")
     print(f"Total Votes: {votercount}")
-    print(f"{candidate1}: {candidate1_vote}")
-    print(f"{candidate2}: {candidate2_vote}")
-    print(f"{candidate3}: {candidate3_vote}")
+    print(f"{candidate1}: {candidate1_percent}% ({candidate1_vote})")
+    print(f"{candidate2}: {candidate2_percent}% ({candidate2_vote})")
+    print(f"{candidate3}: {candidate3_percent}% ({candidate3_vote})")
+    print("-------------------------")
+
+    #Determine winner
+    if candidate1_vote > candidate2_vote and candidate1_vote > candidate3_vote:
+        print(f"Winner: {candidate1}")
+    elif candidate2_vote > candidate3_vote:
+        print(f"Winner: {candidate2}")
+    else:
+        print(f"Winner: {candidate3}")
+    
+    print("-------------------------")
