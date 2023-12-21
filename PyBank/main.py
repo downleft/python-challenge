@@ -44,7 +44,7 @@ with open(csvpath) as csvfile:
         nettotal = nettotal + int(row[1])
 
     #Track the change in Profit/Loss
-    profitchange = (profitchange - int(row[1]))/(monthcount-1)
+    profitchange = (int(row[1]) - profitchange)/(monthcount-1)
     profitchange = round(profitchange,2)
 
     #Print out results of various calculationsw
@@ -53,13 +53,19 @@ with open(csvpath) as csvfile:
     print("-------------------------")
     print(f"Total Months: {monthcount}")
     print(f"Total Profit: ${nettotal}")
-    print(f"Average Change S{profitchange} per month.")
-    print(f"Greatest Increases in Profits {monthOfIncrease} (${maxIncrease})")
-    print(f"Greatest decrerase in profits {monthOfDecrease} (${maxDecrease})")
+    print(f"Average Change: ${profitchange} per month.")
+    print(f"Greatest Increases in Profits: {monthOfIncrease} (${maxIncrease})")
+    print(f"Greatest Decrerase in Profits: {monthOfDecrease} (${maxDecrease})")
 
 #Set up file to export summative data to
 output_path = os.path.join("analysis", "finanalysis.txt")
 
 #Export summative data to text file
 with open(output_path, "w") as txtfile:
-    txtfile.write("Financial Analysis")
+    txtfile.write("Financial Analysis\n")
+    txtfile.write("-------------------------\n")
+    txtfile.write(f"Total Months: {monthcount}\n")
+    txtfile.write(f"Total Profit: ${nettotal}\n")
+    txtfile.write(f"Average Change: ${profitchange} per month.\n")
+    txtfile.write(f"Greatest Increases in Profits: {monthOfIncrease} (${maxIncrease})\n")
+    txtfile.write(f"Greatest Decrerase in Profits: {monthOfDecrease} (${maxDecrease})")
