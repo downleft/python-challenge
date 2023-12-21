@@ -21,19 +21,21 @@ with open(csvpath) as csvfile:
 
     #Read header row
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
-    #row = list(csvreader)
-    #print(row[0][1])
+    #print(f"CSV Header: {csv_header}")
 
     for row in csvreader:
         currentmonth = int(row[1])
         if monthcount == 0:
             profitchange = currentmonth
 
+        #Track greatest increase and decrease
         if currentmonth - setmonth > maxIncrease:
             maxIncrease = currentmonth - setmonth
+            monthOfIncrease = row[0]
         elif currentmonth - setmonth < maxDecrease:
             maxDecrease = currentmonth - setmonth
+            monthOfDecrease = row[0]
+        
         #Track the number of months
         monthcount = monthcount + 1
         setmonth = int(row[1])
@@ -45,9 +47,19 @@ with open(csvpath) as csvfile:
     profitchange = (profitchange - int(row[1]))/(monthcount-1)
     profitchange = round(profitchange,2)
 
-
+    #Print out results of various calculationsw
+    print(" ")
+    print("Financial Analysis")
+    print("-------------------------")
     print(f"Total Months: {monthcount}")
     print(f"Total Profit: ${nettotal}")
     print(f"Average Change S{profitchange} per month.")
-    print(f"Greatest increases in profits {maxIncrease}")
-    print(f"Greatest decrerase in profits {maxDecrease}")
+    print(f"Greatest Increases in Profits {monthOfIncrease} (${maxIncrease})")
+    print(f"Greatest decrerase in profits {monthOfDecrease} (${maxDecrease})")
+
+#Set up file to export summative data to
+output_path = os.path.join("analysis", "finanalysis.txt")
+
+#Export summative data to text file
+with open(output_path, "w") as txtfile:
+    txtfile.write("Financial Analysis")
