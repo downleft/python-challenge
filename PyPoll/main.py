@@ -15,8 +15,6 @@ candidate2 = "Diana DeGette"
 candidate2_vote = 0
 candidate3 = "Raymon Anthony Doane"
 candidate3_vote = 0
-othervote = 0
-
 
 #Establish various tickers
 votercount = 0 #Use this variable to count the number of voters
@@ -34,19 +32,19 @@ with open(csvpath) as csvfile:
     for row in csvreader:
 
         #Track number of voters
-        votercount = votercount + 1
+        votercount += 1
 
         #Track votes for first candidate
         if row[2] == candidate1:
-            candidate1_vote = candidate1_vote + 1
+            candidate1_vote += 1
         
         #Track votes for second candidate
         elif row[2] == candidate2:
-            candidate2_vote = candidate2_vote + 1
+            candidate2_vote += 1
 
         #Track votes for third candidate
         elif row[2] == candidate3:
-            candidate3_vote = candidate3_vote + 1
+            candidate3_vote += 1
 
     #Calculate percentages
     candidate1_percent = candidate1_vote/votercount
