@@ -1,3 +1,5 @@
+#Code for PyBank
+
 # import needed libraries to access CSV files
 import os
 import csv
@@ -21,9 +23,11 @@ with open(csvpath) as csvfile:
 
     #Read header row
     csv_header = next(csvreader)
-    #print(f"CSV Header: {csv_header}")
+    print(f"CSV Header: {csv_header}")
 
     for row in csvreader:
+
+        #Track number of months
         currentmonth = int(row[1])
         if monthcount == 0:
             profitchange = currentmonth
@@ -37,17 +41,17 @@ with open(csvpath) as csvfile:
             monthOfDecrease = row[0]
         
         #Track the number of months
-        monthcount = monthcount + 1
+        monthcount += 1
         setmonth = int(row[1])
 
         #Track the net total Profit/Losses
-        nettotal = nettotal + int(row[1])
+        nettotal += int(row[1])
 
     #Track the change in Profit/Loss
     profitchange = (int(row[1]) - profitchange)/(monthcount-1)
     profitchange = round(profitchange,2)
 
-    #Print out results of various calculationsw
+    #Print out results of various calculations
     print(" ")
     print("Financial Analysis")
     print("-------------------------")
