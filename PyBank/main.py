@@ -10,8 +10,7 @@ csvpath = os.path.join("Resources", "budget_data.csv")
 #Establish various tickers
 monthcount = 0 #Use this variable to count the number of months
 nettotal = 0 #Use this variable to count the net total amount of Profit/Loss
-profitchange = 0 #Use to track the change in Profit/Loss
-setmonth = 0
+previousmonth = 0 #Used to save a value of a row in order to use it in a later calculation
 maxIncrease = 0 #Use to track the greatest increase in profits
 maxDecrease = 0 #Use to track the greatest decrease in profits
 
@@ -23,32 +22,35 @@ with open(csvpath) as csvfile:
 
     #Read header row
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
 
     for row in csvreader:
 
         #Track number of months
         currentmonth = int(row[1])
+
+        #Save initial value as firstmonth
         if monthcount == 0:
-            profitchange = currentmonth
+            firstmonth = currentmonth
 
         #Track greatest increase and decrease
-        if currentmonth - setmonth > maxIncrease:
-            maxIncrease = currentmonth - setmonth
+        if currentmonth - previousmonth > maxIncrease:
+            maxIncrease = currentmonth - previousmonth
             monthOfIncrease = row[0]
-        elif currentmonth - setmonth < maxDecrease:
-            maxDecrease = currentmonth - setmonth
+        elif currentmonth - previousmonth < maxDecrease:
+            maxDecrease = currentmonth - previousmonth
             monthOfDecrease = row[0]
         
         #Track the number of months
         monthcount += 1
-        setmonth = int(row[1])
+
+        #Save Profit/Loss value before rolling to next row
+        previousmonth = int(row[1])
 
         #Track the net total Profit/Losses
         nettotal += int(row[1])
 
     #Track the change in Profit/Loss
-    profitchange = (int(row[1]) - profitchange)/(monthcount-1)
+    profitchange = (int(row[1]) - firstmonth)/(monthcount-1)
     profitchange = round(profitchange,2)
 
     #Print out results of various calculations

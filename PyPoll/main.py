@@ -8,6 +8,8 @@ import csv
 csvpath = os.path.join("Resources", "election_data.csv")
 
 #Establish candidate variables and counts
+#Note, if using this code for other elections, can change candidate names as needed
+#Note, if there are more candidates with the election, can create lines here for candidate4, etc
 totalvote = 0
 candidate1 = "Charles Casper Stockham"
 candidate1_vote = 0
@@ -27,7 +29,6 @@ with open(csvpath) as csvfile:
 
     #Read header row
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
 
     for row in csvreader:
 
@@ -46,23 +47,13 @@ with open(csvpath) as csvfile:
         elif row[2] == candidate3:
             candidate3_vote += 1
 
-    #Calculate percentages
-    candidate1_percent = candidate1_vote/votercount
-    candidate1_percent = round(candidate1_percent*100,3)
-    candidate2_percent = candidate2_vote/votercount
-    candidate2_percent = round(candidate2_percent*100,3)
-    candidate3_percent = candidate3_vote/votercount
-    candidate3_percent = round(candidate3_percent*100,3)
+        #If more than 3 candidates, can update the ticker here with similar elif statements as above, swapping out then candidate#
 
-    #Print out results of various calculations
-    print(" ")
-    print("Election Results")
-    print("-------------------------")
-    print(f"Total Votes: {votercount}")
-    print(f"{candidate1}: {candidate1_percent}% ({candidate1_vote})")
-    print(f"{candidate2}: {candidate2_percent}% ({candidate2_vote})")
-    print(f"{candidate3}: {candidate3_percent}% ({candidate3_vote})")
-    print("-------------------------")
+    #Calculate percentages, round to 3 decimal places
+    #Include percentage calculations for additional candidates as needed
+    candidate1_percent = round(candidate1_vote/votercount*100,3)
+    candidate2_percent = round(candidate2_vote/votercount*100,3)
+    candidate3_percent = round(candidate3_vote/votercount*100,3)
 
     #Determine winner
     if candidate1_vote > candidate2_vote and candidate1_vote > candidate3_vote:
@@ -71,7 +62,16 @@ with open(csvpath) as csvfile:
         winner = candidate2
     else:
         winner = candidate3
-    
+
+    #Print out results of the election
+    print(" ")
+    print("Election Results")
+    print("-------------------------")
+    print(f"Total Votes: {votercount}")
+    print(f"{candidate1}: {candidate1_percent}% ({candidate1_vote})")
+    print(f"{candidate2}: {candidate2_percent}% ({candidate2_vote})")
+    print(f"{candidate3}: {candidate3_percent}% ({candidate3_vote})")
+    print("-------------------------")
     print(f"Winner: {winner}")
     print("-------------------------")
 
