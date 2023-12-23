@@ -66,10 +66,25 @@ with open(csvpath) as csvfile:
 
     #Determine winner
     if candidate1_vote > candidate2_vote and candidate1_vote > candidate3_vote:
-        print(f"Winner: {candidate1}")
+        winner = candidate1
     elif candidate2_vote > candidate3_vote:
-        print(f"Winner: {candidate2}")
+        winner = candidate2
     else:
-        print(f"Winner: {candidate3}")
+        winner = candidate3
     
+    print(f"Winner: {winner}")
     print("-------------------------")
+
+#Set up file to export summative data to
+output_path = os.path.join("analysis", "election_results.txt")
+
+#Export summative data to text file
+with open(output_path, "w") as txtfile:
+    txtfile.write("Election Results\n")
+    txtfile.write("-------------------------\n")
+    txtfile.write(f"Total Votes: {votercount}\n")
+    txtfile.write(f"{candidate1}: {candidate1_percent}% ({candidate1_vote})\n")
+    txtfile.write(f"{candidate2}: {candidate2_percent}% ({candidate2_vote})\n")
+    txtfile.write(f"{candidate3}: {candidate3_percent}% ({candidate3_vote})\n")
+    txtfile.write(f"Winner: {winner}\n")
+    txtfile.write("-------------------------")
