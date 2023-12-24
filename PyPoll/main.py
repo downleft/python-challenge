@@ -6,7 +6,7 @@ import csv
 
 #Establish candidate variables and counts
 #Note, if using this code for other elections, can change candidate names as needed
-#Note, if there are more candidates with the election, can add names to candidate list and  0 placeholders to candidatecount
+#Note, if there are more candidates with the election, can add names to candidate list and append 0 placeholders to candidatecount
 candidates = ["Charles Casper Stockham", "Diana DeGette", "Raymon Anthony Doane"]
 candidatecount = [0, 0, 0]
 votercount = 0 
