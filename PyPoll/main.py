@@ -5,11 +5,8 @@ import os
 import csv
 
 #Establish candidate variables and counts
-#Note, if using this code for other elections, can change or add candidate names as needed
-candidates = ["Charles Casper Stockham", "Diana DeGette", "Raymon Anthony Doane"]
+candidates = []
 candidatecount = []
-for name in candidates:
-    candidatecount.append(0)
 votercount = 0 
 
 #Access the election_data.csv file
@@ -22,6 +19,11 @@ with open(csvpath) as csvfile:
         #Track total votes and candidate votes
         votercount += 1
         nameticker = 0
+
+        #Check to make sure candidate is in the list
+        if row[2] not in candidates:
+            candidates.append(row[2])
+            candidatecount.append(0)
         for name in candidates:
             if row[2] == name:
                 candidatecount[nameticker] += 1
